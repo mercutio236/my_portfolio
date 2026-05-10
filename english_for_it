@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Анна Смирнова | English for IT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background 0.3s ease, color 0.3s ease;
+            line-height: 1.5;
+        }
+
+        /* Тёмная тема (по умолчанию) */
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-card: #1a1a1a;
+            --bg-card-hover: #222222;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --accent: #3b82f6;
+            --accent-glow: rgba(59, 130, 246, 0.2);
+            --border: #2a2a2a;
+            --success: #10b981;
+        }
+
+        body.light {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --bg-card-hover: #f1f5f9;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --accent: #2563eb;
+            --accent-glow: rgba(37, 99, 235, 0.1);
+            --border: #e2e8f0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header & Navigation */
+        .header {
+            position: sticky;
+            top: 0;
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background: rgba(var(--bg-primary-rgb), 0.8);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent), #8b5cf6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Переключатели */
+        .controls {
+            display: flex;
+            gap: 12px;
+        }
+
+        .theme-toggle, .currency-toggle {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .theme-toggle:hover, .currency-toggle:hover {
+            border-color: var(--accent);
+            background: var(--bg-card-hover);
+        }
+
+        /* Кнопки */
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            padding: 12px 28px;
+            border: none;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px var(--accent-glow);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-outline:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        /* Hero секция */
+        .hero {
+            padding: 80px 0 60px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero .highlight {
+            color: var(--accent);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 32px;
+        }
+
+        /* Сетка карточек */
+        .section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 28px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: 24px;
+            padding: 28px;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            background: var(--bg-card-hover);
+        }
+
+        .price {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 16px 0;
+            color: var(--accent);
+        }
+
+        .price small {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+        }
+
+        /* Отзывы */
+        .review-card {
+            background: var(--bg-card);
+            border-radius: 24px;
+            padding: 28px;
+            border: 1px solid var(--border);
+        }
+
+        .review-text {
+            font-style: italic;
+            margin-bottom: 16px;
+        }
+
+        .review-author {
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        /* Форма */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 14px 18px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: 0.2s;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--success);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-weight: 500;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1000;
+        }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 30px 0;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .nav { flex-direction: column; }
+            .nav-links { justify-content: center; }
+            .controls { justify-content: center; }
+            .section-title { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="nav">
+                <div class="logo">English<span style="color: var(--accent);">4IT</span></div>
+                <div class="nav-links">
+                    <a href="#">Главная</a>
+                    <a href="#prices">Цены</a>
+                    <a href="#reviews">Отзывы</a>
+                    <a href="#contact">Запись</a>
+                    <div class="controls">
+                        <div class="currency-toggle" id="currencyToggle">
+                            <i class="fas fa-coins"></i> <span id="currencySymbol">₽</span>
+                        </div>
+                        <div class="theme-toggle" id="themeToggle">
+                            <i class="fas fa-moon"></i> Тема
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero -->
+        <section class="hero">
+            <div class="container">
+                <h1>Английский для <span class="highlight">IT-специалистов</span></h1>
+                <p>Разговорный клуб, техническая документация, подготовка к собеседованиям. Преподаю 7+ лет, 120+ учеников в топовые компании.</p>
+                <a href="#contact" class="btn-primary">👉 Пробный урок — бесплатно</a>
+            </div>
+        </section>
+
+        <!-- Цены с переключением валют -->
+        <section id="prices" class="section">
+            <div class="container">
+                <h2 class="section-title">Стоимость занятий</h2>
+                <div class="grid">
+                    <div class="card">
+                        <i class="fas fa-user" style="font-size: 2rem; color: var(--accent);"></i>
+                        <h3>Индивидуально</h3>
+                        <p>60 минут / персональный план под ваш стек и цели</p>
+                        <div class="price"><span id="priceIndividual">2500</span> <small id="priceIndividualCur">₽</small><span id="priceIndividualPer">/урок</span></div>
+                        <button class="btn-outline" onclick="alert('Свяжемся для подбора времени!')">Выбрать время</button>
+                    </div>
+                    <div class="card">
+                        <i class="fas fa-users" style="font-size: 2rem; color: var(--accent);"></i>
+                        <h3>В паре (2-3 чел)</h3>
+                        <p>Интерактив, code-review на английском, дискуссии</p>
+                        <div class="price"><span id="priceGroup">1500</span> <small id="priceGroupCur">₽</small><span id="priceGroupPer">/урок</span></div>
+                        <button class="btn-outline" onclick="alert('Свяжемся для подбора времени!')">Выбрать</button>
+                    </div>
+                    <div class="card">
+                        <i class="fas fa-chalkboard-user" style="font-size: 2rem; color: var(--accent);"></i>
+                        <h3>Разговорный клуб</h3>
+                        <p>4 занятия в месяц, темы: Agile, DevOps, AI/ML</p>
+                        <div class="price"><span id="priceClub">4000</span> <small id="priceClubCur">₽</small><span id="priceClubPer">/мес</span></div>
+                        <button class="btn-outline" onclick="alert('Свяжемся для подбора времени!')">Записаться</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Отзывы -->
+        <section id="reviews" class="section" style="background: var(--bg-secondary);">
+            <div class="container">
+                <h2 class="section-title">Отзывы учеников</h2>
+                <div class="grid">
+                    <div class="review-card">
+                        <i class="fas fa-quote-left" style="color: var(--accent); font-size: 1.5rem;"></i>
+                        <p class="review-text">"После года с Анной прошёл собеседование в EPAM. Отдельное спасибо за разбор технических кейсов и mock-interviews!"</p>
+                        <p class="review-author">— Алексей, Senior Java Developer</p>
+                    </div>
+                    <div class="review-card">
+                        <i class="fas fa-quote-left" style="color: var(--accent); font-size: 1.5rem;"></i>
+                        <p class="review-text">"Групповые занятия — находка. Мы обсуждаем статьи из Medium, документацию React, даже баги на английском. Кайфую!"</p>
+                        <p class="review-author">— Екатерина, Frontend-разработчик</p>
+                    </div>
+                    <div class="review-card">
+                        <i class="fas fa-quote-left" style="color: var(--accent); font-size: 1.5rem;"></i>
+                        <p class="review-text">"Перестал бояться speaking на митингах. Анна даёт живые фразы, которые используют в международных командах."</p>
+                        <p class="review-author">— Дмитрий, DevOps Engineer</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Форма записи -->
+        <section id="contact" class="section">
+            <div class="container">
+                <div class="card" style="max-width: 600px; margin: 0 auto; text-align: center;">
+                    <h2 style="margin-bottom: 20px;">📅 Запись на пробный урок</h2>
+                    <p style="margin-bottom: 24px;">Оставьте контакты — подберу удобное время и расскажу о формате.</p>
+                    <form id="signupForm">
+                        <div class="form-group">
+                            <input type="text" id="name" placeholder="Ваше имя" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" placeholder="Email или Telegram" required>
+                        </div>
+                        <div class="form-group">
+                            <select id="level">
+                                <option value="">Уровень английского</option>
+                                <option>Начинающий (A1-A2)</option>
+                                <option>Средний (B1-B2)</option>
+                                <option>Продвинутый (C1+)</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn-primary">Отправить →</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 Анна Смирнова — English for IT. Все права защищены.</p>
+            <p style="margin-top: 12px;"><i class="fab fa-telegram"></i> @anna_english_it | <i class="fab fa-linkedin"></i> /in/anna-smirnova</p>
+        </div>
+    </footer>
+
+    <div id="toast" class="toast">✅ Заявка отправлена!</div>
+
+    <script>
+        // === Переключение темы ===
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light');
+            const icon = themeToggle.querySelector('i');
+            if (document.body.classList.contains('light')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        });
+
+        // === Переключение валют (рубль, доллар, евро) ===
+        const currencyToggle = document.getElementById('currencyToggle');
+        let currentCurrency = 'RUB'; // RUB, USD, EUR
+        
+        // База в рублях (цены)
+        const pricesRUB = {
+            individual: 2500,
+            group: 1500,
+            club: 4000
+        };
+        
+        function updatePrices() {
+            let rate = 1;
+            let symbol = '₽';
+            if (currentCurrency === 'USD') { rate = 0.011; symbol = '$'; }
+            if (currentCurrency === 'EUR') { rate = 0.010; symbol = '€'; }
+            
+            document.getElementById('priceIndividual').innerText = Math.round(pricesRUB.individual * rate);
+            document.getElementById('priceGroup').innerText = Math.round(pricesRUB.group * rate);
+            document.getElementById('priceClub').innerText = Math.round(pricesRUB.club * rate);
+            
+            document.getElementById('priceIndividualCur').innerText = symbol;
+            document.getElementById('priceGroupCur').innerText = symbol;
+            document.getElementById('priceClubCur').innerText = symbol;
+            document.getElementById('currencySymbol').innerText = symbol;
+        }
+        
+        currencyToggle.addEventListener('click', () => {
+            if (currentCurrency === 'RUB') currentCurrency = 'USD';
+            else if (currentCurrency === 'USD') currentCurrency = 'EUR';
+            else currentCurrency = 'RUB';
+            updatePrices();
+        });
+        
+        // === Форма с уведомлением ===
+        const form = document.getElementById('signupForm');
+        const toast = document.getElementById('toast');
+        
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const level = document.getElementById('level').value;
+            
+            if (!name || !email || !level) {
+                alert('Пожалуйста, заполните все поля 🙏');
+                return;
+            }
+            
+            // Показываем тост
+            toast.style.opacity = '1';
+            setTimeout(() => { toast.style.opacity = '0'; }, 3000);
+            form.reset();
+            
+            // Здесь можно добавить реальную отправку на бэкенд
+            console.log('Запись:', { name, email, level });
+        });
+        
+        // Плавная прокрутка для якорных ссылок
+        document.querySelectorAll('.nav-links a, .btn-primary').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const hash = this.getAttribute('href');
+                if (hash && hash.startsWith('#')) {
+                    e.preventDefault();
+                    const target = document.querySelector(hash);
+                    if (target) target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
